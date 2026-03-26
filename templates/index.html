@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AkashPankh — IROC Ground Station</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="/static/css/styles.css"/>
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <span class="logo">⬡ AKASHPANKH</span>
+    <span class="mission">IROC-U ASCEND · Ground Station</span>
+  </div>
+  <div class="hd-right">
+    <div class="pill" id="arm-pill">DISARMED</div>
+    <div class="pill" id="fm-pill">--</div>
+    <div class="pill" id="link-pill">NO LINK</div>
+    <span class="hz" id="hz-display">0 Hz</span>
+  </div>
+</header>
+
+<!-- ROW 1: Attitude | Battery | Altitude | Link -->
+<div class="grid g4">
+
+  <div class="card" id="c-attitude">
+    <div class="card-label">ATTITUDE</div>
+    <div class="horizon-wrap">
+      <canvas id="horizon" width="160" height="160"></canvas>
+      <div class="compass-ring">
+        <div class="compass-needle" id="compass-needle">▲</div>
+      </div>
+    </div>
+    <div class="att-row">
+      <div><span class="ch">P</span><b id="v-pit">--</b>°</div>
+      <div><span class="ch">R</span><b id="v-rol">--</b>°</div>
+      <div><span class="ch">Y</span><b id="v-yaw">--</b>°</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">BATTERY</div>
+    <div class="big-num" id="v-volt">--<span class="unit">V</span></div>
+    <div class="btrack"><div class="bfill" id="bfill"></div></div>
+    <div class="mini-grid">
+      <div><label>CURRENT</label><span id="v-curr">--</span> A</div>
+      <div><label>USED</label><span id="v-mah">--</span> mAh</div>
+      <div><label>REMAINING</label><span id="v-pct">--</span>%</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">ALTITUDE</div>
+    <div class="big-num accent" id="v-balt">--<span class="unit">m</span></div>
+    <div class="mini-grid">
+      <div><label>GPS ALT</label><span id="v-galt">--</span> m</div>
+      <div><label>V/SPEED</label><span id="v-vs">--</span> m/s</div>
+    </div>
+    <canvas id="alt-hist" width="220" height="60" style="margin-top:8px;border-radius:4px"></canvas>
+  </div>
+
+  <div class="card">
+    <div class="card-label">LINK QUALITY</div>
+    <div class="big-num green" id="v-lq">--<span class="unit">%</span></div>
+    <div class="btrack"><div class="bfill green-fill" id="lqfill"></div></div>
+    <div class="mini-grid">
+      <div><label>RSSI 1</label><span id="v-r1">--</span> dBm</div>
+      <div><label>RSSI 2</label><span id="v-r2">--</span> dBm</div>
+      <div><label>SNR</label><span id="v-snr">--</span> dB</div>
+      <div><label>RF MODE</label><span id="v-rf">--</span></div>
+      <div><label>TX PWR</label><span id="v-pwr">--</span></div>
+      <div><label>DL LQ</label><span id="v-dll">--</span>%</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ROW 2: GPS Map | Stats -->
+<div class="grid g2">
+
+  <div class="card">
+    <div class="card-label">
+      GPS TRACK &nbsp;
+      <span class="pill sm" id="sat-pill">0 SATS</span>
+    </div>
+    <div id="map"></div>
+    <div class="mini-grid mt8">
+      <div><label>LAT</label><span id="v-lat">--</span></div>
+      <div><label>LON</label><span id="v-lon">--</span></div>
+      <div><label>SPEED</label><span id="v-spd">--</span> km/h</div>
+      <div><label>HEADING</label><span id="v-hdg">--</span>°</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">TELEMETRY STATS</div>
+    <div class="stat-list">
+      <div class="stat-row"><span>ESP-NOW Packets</span><b id="s-pkts">--</b></div>
+      <div class="stat-row"><span>CRSF Frames</span><b id="s-frm">--</b></div>
+      <div class="stat-row"><span>Data Age</span><b id="s-age">--</b></div>
+      <div class="stat-row"><span>RF Mode</span><b id="s-rf">--</b></div>
+      <div class="stat-row"><span>TX Power Index</span><b id="s-pwr">--</b></div>
+      <div class="stat-row"><span>DL RSSI</span><b id="s-dlr">--</b></div>
+    </div>
+    <div class="card-label" style="margin-top:14px">RSSI TREND</div>
+    <canvas id="rssi-hist" width="220" height="60" style="border-radius:4px"></canvas>
+  </div>
+
+</div>
+
+<footer>
+  <span id="f-pkts">PKT: 0</span>
+  <span id="f-age">AGE: --ms</span>
+  <span id="f-ts">--</span>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/static/js/script.js"></script>
+</body>
+</html>
